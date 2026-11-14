@@ -1,0 +1,39 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureNoteApp.Domain", "src\Domain\SecureNoteApp.Domain.csproj", "{80AED419-041F-41DD-BA02-283725FA5977}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureNoteApp.Application", "src\Application\SecureNoteApp.Application.csproj", "{482225FE-A163-4701-87CE-06912ABD4C7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureNoteApp.Infrastructure", "src\Infrastructure\SecureNoteApp.Infrastructure.csproj", "{C3C1E65C-00E8-4619-B9B7-9620E61DAA91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureNoteApp.WebApi", "src\WebApi\SecureNoteApp.WebApi.csproj", "{8F506451-381A-4282-90F1-63FF3A3CE0F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80AED419-041F-41DD-BA02-283725FA5977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80AED419-041F-41DD-BA02-283725FA5977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80AED419-041F-41DD-BA02-283725FA5977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80AED419-041F-41DD-BA02-283725FA5977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{482225FE-A163-4701-87CE-06912ABD4C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{482225FE-A163-4701-87CE-06912ABD4C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{482225FE-A163-4701-87CE-06912ABD4C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{482225FE-A163-4701-87CE-06912ABD4C7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3C1E65C-00E8-4619-B9B7-9620E61DAA91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C1E65C-00E8-4619-B9B7-9620E61DAA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C1E65C-00E8-4619-B9B7-9620E61DAA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C1E65C-00E8-4619-B9B7-9620E61DAA91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F506451-381A-4282-90F1-63FF3A3CE0F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F506451-381A-4282-90F1-63FF3A3CE0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F506451-381A-4282-90F1-63FF3A3CE0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F506451-381A-4282-90F1-63FF3A3CE0F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
