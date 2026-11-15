@@ -12,6 +12,13 @@ using SecureNoteApp.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Support dynamic PORT environment variable (Render, Cloud Run, Heroku, etc.)
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrWhiteSpace(port))
+{
+    builder.WebHost.UseUrls($"http://+:{port}");
+}
+
 // 1. Add Clean Architecture Layers
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -25,6 +32,11 @@ builder.Services.AddHostedService<MongoDbInitializerHostedService>();
 
 // 4. Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>() ?? new JwtSettings();
+var jwtSecretEnv = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? Environment.GetEnvironmentVariable("JWT_SECRET");
+if (!string.IsNullOrWhiteSpace(jwtSecretEnv))
+{
+    jwtSettings.SecretKey = jwtSecretEnv;
+}
 var key = Encoding.UTF8.GetBytes(jwtSettings.SecretKey);
 
 builder.Services.AddAuthentication(options =>
@@ -122,6 +134,9 @@ app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Health check endpoint for Render / cloud monitoring
+app.MapGet("/health", () => Results.Ok(new { status = "Healthy", timestamp = DateTime.UtcNow })).ExcludeFromDescription();
 
 app.MapControllers();
 

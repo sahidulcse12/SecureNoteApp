@@ -1,0 +1,24 @@
+services:
+  # Backend Web Service on Render
+  - type: web
+    name: securenote-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: EnableSwagger
+        value: "true"
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JwtSettings__Issuer
+        value: SecureNoteApp
+      - key: JwtSettings__Audience
+        value: SecureNoteAppClient
+      - key: JwtSettings__ExpiryInMinutes
+        value: "1440"
