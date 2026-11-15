@@ -1,0 +1,11 @@
+[build]
+  base = "frontend"
+  publish = "frontend/.next"
+  command = "npm run build"
+
+[build.environment]
+  NEXT_PUBLIC_API_URL = "https://securenoteapp-vztv.onrender.com/api"
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
