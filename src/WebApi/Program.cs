@@ -105,7 +105,7 @@ var app = builder.Build();
 // 8. Middleware Pipeline
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || builder.Configuration.GetValue<bool>("EnableSwagger", true))
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -113,6 +113,9 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Secure Note API v1");
         c.RoutePrefix = "swagger";
     });
+
+    // Automatically redirect root URL to Swagger UI
+    app.MapGet("/", () => Results.Redirect("/swagger")).ExcludeFromDescription();
 }
 
 app.UseCors("AllowAll");
