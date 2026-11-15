@@ -28,7 +28,14 @@ function UserModal({ user, onClose, onSave }: { user: Partial<User> | null; onCl
       if (isNew) {
         await usersApi.create({ ...form, interests });
       } else if (user?.id) {
-        await usersApi.update(user.id, { email: form.email, fullName: form.fullName, role: form.role, interests });
+        await usersApi.update(user.id, {
+          username: form.username,
+          email: form.email,
+          fullName: form.fullName,
+          role: form.role,
+          interests,
+          ...(form.password ? { password: form.password } : {}),
+        });
       }
       onSave();
       onClose();

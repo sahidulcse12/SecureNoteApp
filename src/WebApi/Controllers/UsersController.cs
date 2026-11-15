@@ -18,10 +18,7 @@ public class UsersController : ControllerBase
         _userService = userService;
     }
 
-    /// <summary>
-    /// Admin: List all users with pagination.
-    /// Supported by index: { createdAt: -1 }
-    /// </summary>
+
     [HttpGet]
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<PagedResult<UserDto>>> GetUsers([FromQuery] PaginationParams pagination)
@@ -30,11 +27,7 @@ public class UsersController : ControllerBase
         return Ok(users);
     }
 
-    /// <summary>
-    /// Read Operation: Get a specific user by ID.
-    /// Admin or user themselves can view.
-    /// Supported by default _id index.
-    /// </summary>
+
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDto>> GetUserById(string id)
     {
@@ -42,9 +35,7 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-    /// <summary>
-    /// Admin: Add a new user.
-    /// </summary>
+
     [HttpPost]
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserRequest request)
@@ -53,9 +44,7 @@ public class UsersController : ControllerBase
         return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
     }
 
-    /// <summary>
-    /// Admin: Update an existing user.
-    /// </summary>
+
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<UserDto>> UpdateUser(string id, [FromBody] UpdateUserRequest request)
@@ -64,9 +53,7 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-    /// <summary>
-    /// Admin: Delete a user.
-    /// </summary>
+
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteUser(string id)

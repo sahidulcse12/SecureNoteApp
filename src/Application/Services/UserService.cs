@@ -99,8 +99,8 @@ public class UserService : IUserService
         if (user == null)
             throw new NotFoundException("User", id);
 
-        var cleanEmail = request.Email.Trim().ToLowerInvariant();
-        var cleanUsername = request.Username.Trim();
+        var cleanEmail = (string.IsNullOrWhiteSpace(request.Email) ? user.Email : request.Email).Trim().ToLowerInvariant();
+        var cleanUsername = (string.IsNullOrWhiteSpace(request.Username) ? user.Username : request.Username).Trim();
 
         if (await _userRepository.ExistsByEmailAsync(cleanEmail, id))
             throw new ConflictException("A user with this email already exists.");

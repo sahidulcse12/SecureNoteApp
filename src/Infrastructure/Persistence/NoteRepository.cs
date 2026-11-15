@@ -19,10 +19,6 @@ public class NoteRepository : INoteRepository
         return await _context.Notes.Find(n => n.Id == id).FirstOrDefaultAsync();
     }
 
-    /// <summary>
-    /// User listing their notes paginated.
-    /// Supported by compound index: { userId: 1, createdAt: -1 }
-    /// </summary>
     public async Task<PagedResult<Note>> GetPagedByUserAsync(string userId, PaginationParams pagination)
     {
         var filter = Builders<Note>.Filter.Eq(n => n.UserId, userId);
@@ -37,10 +33,6 @@ public class NoteRepository : INoteRepository
         return new PagedResult<Note>(items, totalCount, pagination.PageNumber, pagination.PageSize);
     }
 
-    /// <summary>
-    /// Admin listing all notes across all users paginated.
-    /// Supported by index: { createdAt: -1 }
-    /// </summary>
     public async Task<PagedResult<Note>> GetAllPagedAsync(PaginationParams pagination)
     {
         var filter = Builders<Note>.Filter.Empty;

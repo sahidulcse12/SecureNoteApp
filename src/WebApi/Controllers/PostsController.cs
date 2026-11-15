@@ -17,10 +17,7 @@ public class PostsController : ControllerBase
         _postService = postService;
     }
 
-    /// <summary>
-    /// Feed of public posts visible to everyone, with pagination.
-    /// Supported by index: { createdAt: -1 }
-    /// </summary>
+
     [HttpGet]
     public async Task<ActionResult<PagedResult<PostDto>>> GetPosts([FromQuery] PaginationParams pagination)
     {
@@ -28,9 +25,7 @@ public class PostsController : ControllerBase
         return Ok(posts);
     }
 
-    /// <summary>
-    /// Authenticated user: Create a new post.
-    /// </summary>
+
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<PostDto>> CreatePost([FromBody] CreatePostRequest request)

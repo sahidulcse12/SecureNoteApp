@@ -82,11 +82,6 @@ public class UserRepository : IUserRepository
         return await _context.Users.Find(filter).AnyAsync();
     }
 
-    /// <summary>
-    /// Scenario 1: Group by Interests
-    /// Constraint: You must use exactly one collection.aggregate() call. Do not use any other methods.
-    /// Uses multikey index on "interests".
-    /// </summary>
     public async Task<List<InterestsGroupDto>> GetUsersGroupedByInterestsAsync()
     {
         var aggregate = _context.Users.Aggregate()

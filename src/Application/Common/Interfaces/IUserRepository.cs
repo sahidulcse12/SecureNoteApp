@@ -16,6 +16,5 @@ public interface IUserRepository
     Task<bool> ExistsByEmailAsync(string email, string? excludeUserId = null);
     Task<bool> ExistsByUsernameAsync(string username, string? excludeUserId = null);
     
-    // Scenario 1: Group by Interests (using single collection.aggregate() call)
     Task<List<InterestsGroupDto>> GetUsersGroupedByInterestsAsync();
 }

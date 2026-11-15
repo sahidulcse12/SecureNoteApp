@@ -15,13 +15,7 @@ public class AggregationsController : ControllerBase
         _aggregationService = aggregationService;
     }
 
-    /// <summary>
-    /// Scenario 1: Group by Interests
-    /// Context: User profiles contain a list of interests (e.g., ['chess', 'reading']).
-    /// Task: specific view to see users grouped by interests.
-    /// Constraint: You must use exactly one collection.aggregate() call. Do not use any other methods.
-    /// Supported by multikey index on users: { interests: 1 }
-    /// </summary>
+
     [HttpGet("users-by-interests")]
     public async Task<ActionResult<List<InterestsGroupDto>>> GetUsersByInterests()
     {
@@ -29,13 +23,7 @@ public class AggregationsController : ControllerBase
         return Ok(result);
     }
 
-    /// <summary>
-    /// Scenario 2: User Posts ($lookup)
-    /// Context: Users can write posts which are stored in a separate Posts collection. These posts are visible to everyone.
-    /// Task: Retrieve all posts belonging to a particular user.
-    /// Constraint: Use a single aggregation pipeline with a $lookup stage.
-    /// Supported by compound index on posts: { userId: 1, createdAt: -1 }
-    /// </summary>
+
     [HttpGet("users/{userId}/posts")]
     public async Task<ActionResult<UserWithPostsDto>> GetUserPosts(string userId)
     {
@@ -43,10 +31,7 @@ public class AggregationsController : ControllerBase
         return Ok(result);
     }
 
-    /// <summary>
-    /// Database Indexing & Strategy Verification Endpoint
-    /// Explains all indexes defined and verifies critical constraint: "DO NOT MAKE ANY UNNECESSARY INDEXES".
-    /// </summary>
+
     [HttpGet("indexes-info")]
     public IActionResult GetIndexesInfo()
     {

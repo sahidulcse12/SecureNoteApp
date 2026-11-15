@@ -30,8 +30,8 @@ export default function RegisterPage() {
     setForm(prev => ({ ...prev, [field]: e.target.value }));
 
   return (
-    <div className="max-w-md mx-auto mt-16 bg-white p-8 rounded-xl shadow-md">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Create Account</h1>
+    <div className="max-w-md mx-auto mt-16 bg-white p-8 rounded-xl shadow-md text-black">
+      <h1 className="text-2xl font-bold text-black mb-6">Create Account</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         {[
           { field: 'fullName', label: 'Full Name', type: 'text' },
@@ -40,13 +40,13 @@ export default function RegisterPage() {
           { field: 'password', label: 'Password', type: 'password' },
         ].map(({ field, label, type }) => (
           <div key={field}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+            <label className="block text-sm font-medium text-black mb-1">{label}</label>
             <input
               type={type}
               value={form[field as keyof typeof form]}
               onChange={set(field)}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-black bg-white"
             />
           </div>
         ))}
@@ -59,7 +59,7 @@ export default function RegisterPage() {
           {loading ? 'Creating account...' : 'Create Account'}
         </button>
       </form>
-      <p className="mt-4 text-sm text-center text-gray-600">
+      <p className="mt-4 text-sm text-center text-black">
         Already have an account?{' '}
         <Link href="/login" className="text-indigo-600 hover:underline">Sign in</Link>
       </p>

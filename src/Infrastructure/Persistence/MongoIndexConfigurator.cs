@@ -5,26 +5,6 @@ using SecureNoteApp.Domain.Entities;
 
 namespace SecureNoteApp.Infrastructure.Persistence;
 
-/// <summary>
-/// Explicit Index Configuration adhering to requirement:
-/// "You must use the schema.index method for defining indexes in your code so they are visible during review."
-///
-/// CRITICAL CONSTRAINT: DO NOT MAKE ANY UNNECESSARY INDEXES.
-/// Only creates indexes strictly required to support the queries and aggregations:
-/// 1. Users:
-///    - { email: 1 } (Unique): Auth & Profile GET by email
-///    - { username: 1 } (Unique): Auth & Profile GET by username
-///    - { createdAt: -1 }: Admin listing users paginated sorted by newest
-///    - { interests: 1 }: Multikey index supporting Scenario 1 aggregation ($unwind & $group by interests)
-///
-/// 2. Notes:
-///    - { userId: 1, createdAt: -1 }: Compound index for user listing their own notes paginated
-///    - { createdAt: -1 }: Index for admin listing all notes paginated
-///
-/// 3. Posts:
-///    - { userId: 1, createdAt: -1 }: Compound index supporting Scenario 2 ($lookup by userId and sorting)
-///    - { createdAt: -1 }: Index for public feed listing posts paginated
-/// </summary>
 public class MongoIndexConfigurator
 {
     private readonly IMongoDbContext _context;
@@ -36,9 +16,6 @@ public class MongoIndexConfigurator
         _logger = logger;
     }
 
-    /// <summary>
-    /// Declarative schema.index definition wrapper for clean visibility during code review.
-    /// </summary>
     public static class Schema
     {
         public static CreateIndexModel<T> Index<T>(

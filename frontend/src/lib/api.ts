@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5039/api';
 
 function getToken(): string | null {
   if (typeof window === 'undefined') return null;
@@ -22,7 +22,10 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 // Auth
 export const authApi = {
   login: (body: { username: string; password: string }) =>
-    request<{ token: string; user: User }>('/auth/login', { method: 'POST', body: JSON.stringify(body) }),
+    request<{ token: string; user: User }>('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ emailOrUsername: body.username, password: body.password }),
+    }),
   register: (body: { username: string; email: string; password: string; fullName: string }) =>
     request<{ token: string; user: User }>('/auth/register', { method: 'POST', body: JSON.stringify(body) }),
   me: () => request<User>('/auth/me'),
@@ -57,7 +60,7 @@ export const usersApi = {
   get: (id: string) => request<User>(`/users/${id}`),
   create: (body: { username: string; email: string; password: string; fullName: string; role?: string; interests?: string[] }) =>
     request<User>('/users', { method: 'POST', body: JSON.stringify(body) }),
-  update: (id: string, body: { email?: string; fullName?: string; role?: string; interests?: string[] }) =>
+  update: (id: string, body: { username?: string; email?: string; fullName?: string; role?: string; interests?: string[]; password?: string }) =>
     request<User>(`/users/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
   delete: (id: string) => request<void>(`/users/${id}`, { method: 'DELETE' }),
 };

@@ -21,10 +21,6 @@ public class PostRepository : IPostRepository
         return await _context.Posts.Find(p => p.Id == id).FirstOrDefaultAsync();
     }
 
-    /// <summary>
-    /// Listing public posts feed paginated.
-    /// Supported by index: { createdAt: -1 }
-    /// </summary>
     public async Task<PagedResult<Post>> GetPagedAsync(PaginationParams pagination)
     {
         var filter = Builders<Post>.Filter.Empty;
@@ -44,12 +40,6 @@ public class PostRepository : IPostRepository
         await _context.Posts.InsertOneAsync(post);
     }
 
-    /// <summary>
-    /// Scenario 2: User Posts ($lookup)
-    /// Task: Retrieve all posts belonging to a particular user.
-    /// Constraint: Use a single aggregation pipeline with a $lookup stage.
-    /// Supported by index on posts: { userId: 1, createdAt: -1 }
-    /// </summary>
     public async Task<UserWithPostsDto?> GetUserPostsWithLookupAsync(string userId)
     {
         ObjectId parsedObjectId;
