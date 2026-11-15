@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: securenote-backend
+    restart: unless-stopped
+    ports:
+      - "5039:5039"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5039
+      - EnableSwagger=true
+      - MongoDbSettings__ConnectionString=mongodb://mongodb:27017
+      - MongoDbSettings__DatabaseName=SecureNoteDb
+      - JwtSettings__SecretKey=SecureNoteApp_SuperSecretKey_For_Jwt_Auth_2026_Minimum_32_Chars!
+      - JwtSettings__Issuer=SecureNoteApp
+      - JwtSettings__Audience=SecureNoteAppClient
+      - JwtSettings__ExpiryInMinutes=1440
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - securenote-network
+
+  mongodb:
+    image: mongo:7.0
+    container_name: securenote-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - securenote-network
+
+volumes:
+  mongo-data:
+
+networks:
+  securenote-network:
+    driver: bridge
